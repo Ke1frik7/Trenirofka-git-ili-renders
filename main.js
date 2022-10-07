@@ -174,6 +174,51 @@ function titles(e){
 }
 
 let acardionBody = createTag("div")
-    acardionBody.className = 'accordion-body'
-    acardionBody.append(`Got it's dowload ${JSON.parse(localStorage.getItem("storageRender")).name}`)
-    collapse.appendChild(acardionBody)
+acardionBody.className = 'accordion-body'
+acardionBody.append(`Got it's dowload ${JSON.parse(localStorage.getItem("storageRender")).name}`)
+collapse.appendChild(acardionBody)
+
+let caruselAlign = renderElement(".carusel_align")
+let caruselImages = renderElement(".carusel_images")
+let rightBtn = renderElement("#right_carusel")
+let leftBtn = renderElement("#left_carusel")
+let qolib;
+function carusels(arr){
+    for(let i = 0; i<arr.length; i++){
+        let image = createTag("img")
+        image.src = arr[i].bigposter
+        image.style.width = "500px"
+        image.class = "shox"
+        image.style.height = "500px"
+        image.style.objectFit = 'cover'
+        caruselImages.appendChild(image)
+    
+    }
+    qolib = renderElementAll(".carusel_images img")
+    return qolib
+}
+let results =carusels(movies)
+console.time("changes Carusel time")
+let index = 1
+function changes(){
+   caruselAlign.style.transition = "all 0.5s ease"
+   if(index >result.length){
+    index = 0
+   }else if(index < 0){
+    index = result.length-1
+   }
+    caruselAlign.style.transform = `translateX(${index*-500}px)`    
+}
+rightBtn.addEventListener("click", () => {
+    index ++
+    changes()    
+})
+leftBtn.addEventListener("click", () => {
+    index--
+    changes()
+})
+setInterval(() => {
+    index++
+    changes()
+}, 1000)
+console.timeEnd("changes Carusel time")

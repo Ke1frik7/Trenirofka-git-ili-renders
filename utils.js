@@ -10,3 +10,6 @@ function textNode(text){
 function elementId(id){
     return document.getElementById(id)
 }
+function renderElementAll(element){
+    return document.querySelectorAll(element)
+}
