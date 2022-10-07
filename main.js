@@ -55,13 +55,67 @@ function optionsCreate(arr){
     })
 }
 optionsCreate(result)
+let input  = elementId("input_1")
+let selectSort = elementId("select_sort")
+let object =  {
+    az: function(a,b) {
+        if(a.title.toLowerCase() < b.title.toLowerCase()){
+            return -1
+        }else{
+            return 1
+        }
+    },
+     za: function(a,b) {
+        if(a.title.toLowerCase() < b.title.toLowerCase()){
+            return 1
+        }else{
+            return -1
+        }
+    },
+    rating: function(a,b) {
+        if(a.rating < b.rating){
+            return 1
+        }else {
+            return -1
+        }
+    },
+    year: function(a, b){
+        if(a.year < b.year){
+            return 1
+        }else {
+            return -1
+        }
+    }
+}
 function filter(e){
     e.preventDefault()
     let optionArray = []
     let selectValue = selectOption.value
+    let inputValue = input.value
+    let sortValue = selectSort.value
+    if(selectValue == "all"){
+        optionArray = movies
+    }else if(selectValue !== "all"){
+        optionArray = movies.filter((item) => item.categories.includes(selectValue))
+    }
+    let rejex = new RegExp(inputValue, "gi")
+    if(inputValue == "all"){
+        optionArray = movies
+    }else if(inputValue !== "all"){
+        optionArray = optionArray.filter((item) => item.title.match(rejex))
+    }
+    
 
-    optionArray = movies.filter((item) => item.categories.includes(selectValue))
-
+    optionArray.sort(object[sortValue])
+    // if(sortValue == "az"){
+    //     optionArray.sort((a,b) => {
+    //         if(a.title.toLowerCase() < b.title.toLowerCase()){
+    //             return -1
+    //         }else{
+    //             return 1
+    //         }
+    //     })
+    // }
     renderCard(optionArray)
 }
 elementId("form").addEventListener("submit", filter)
