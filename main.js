@@ -12,6 +12,7 @@ function renderCard(object){
         text.className = 'card-text'
         card.appendChild(text)
         let h2 = createTag("h2")
+        h2.id = "h2ss"
         h2.appendChild(textNode(object[i].title))
         text.appendChild(h2)
         let h5 = createTag("h5")
@@ -27,7 +28,8 @@ function renderCard(object){
         text.appendChild(anker)
         let button = createTag("button")
         button.className = 'btn btn-danger m-2'
-        button.appendChild(textNode("Dowload"))
+        button.appendChild(textNode(object[i].title))
+        button.addEventListener("click", titles)
         text.appendChild(button)
     }
 
@@ -119,4 +121,59 @@ function filter(e){
     renderCard(optionArray)
 }
 elementId("form").addEventListener("submit", filter)
-renderCard(movies)
+
+let right = renderElement(".right")
+let left = renderElement(".left")
+let limit = 3
+let page = 1
+left.disabled = true
+let max = movies.length / limit
+function rightFunction(){
+    page ++
+    if(page <= max){
+        renderCard(movies.slice(limit *(page-1), limit*page))
+    }else{
+        left.disabled = false
+        right.disabled = true
+    }
+    // renderCard(movies.slice(limit*(page-1)))
+}
+right.addEventListener("click", rightFunction)
+renderCard(movies.slice(0, 3))
+function leftFunction(){
+    page--
+    if(page > 0){
+        renderCard(movies.slice(limit *(page-1), limit*page))
+    }else if(page == 0){
+        left.disabled = true
+        right.disabled = false
+    }
+    
+}
+left.addEventListener("click", leftFunction)
+
+let objectStorage = {
+    name: null,
+    year: null,
+}
+let collapse = elementId("flush-collapseOne")
+function titles(e){
+    console.log("ishladi")
+    let texts = e.target.textContent
+    let rejexx = new RegExp(texts, "gi")
+    let filters = movies.filter((item) => item.title.match(rejexx))
+    for(key of filters){
+       objectStorage.name = key.title
+       objectStorage.year = key.year
+    }
+    window.localStorage.setItem("storageRender", JSON.stringify(objectStorage))
+    let acardionBody = createTag("div")
+    acardionBody.className = 'accordion-body'
+    acardionBody.append(`Got it's dowload ${JSON.parse(localStorage.getItem("storageRender")).name}`)
+    collapse.appendChild(acardionBody)
+}
+
+let acardionBody = createTag("div")
+    acardionBody.className = 'accordion-body'
+    acardionBody.append(`Got it's dowload ${JSON.parse(localStorage.getItem("storageRender")).name}`)
+    collapse.appendChild(acardionBody)
