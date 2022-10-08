@@ -281,3 +281,26 @@ function handleBooks(e)
     }
 }
 parent.addEventListener("click", handleBooks)
+
+let objecting = [
+    {
+        name: "Messi", 
+        age: 34
+    },
+    {
+        name: "Ronaldo", 
+        age: 38
+    },
+    {
+        name: "Bruno Fernandesh", 
+        age: 38
+    }
+]
+objecting.sort((a,b) => {
+    if(a.name.toLowerCase() < b.name.toLowerCase()){
+        return -1
+    }else{
+        return 1
+    }
+})
+console.log(objecting)
