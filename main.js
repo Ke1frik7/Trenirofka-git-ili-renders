@@ -27,9 +27,10 @@ function renderCard(object){
         anker.appendChild(textNode(object[i].title + " " + "trailers"))
         text.appendChild(anker)
         let button = createTag("button")
-        button.className = 'btn btn-danger m-2'
-        button.appendChild(textNode(object[i].title))
-        button.addEventListener("click", titles)
+        button.className = 'btn btn-warning m-2 js-bookmarks'
+        button.appendChild(textNode("Bookmark"))
+        button.dataset.id = object[i].id
+        // button.addEventListener("click") // titles function
         text.appendChild(button)
     }
 
@@ -121,7 +122,7 @@ function filter(e){
     renderCard(optionArray)
 }
 elementId("form").addEventListener("submit", filter)
-
+renderCard(movies)
 let right = renderElement(".right")
 let left = renderElement(".left")
 let limit = 3
@@ -139,7 +140,7 @@ function rightFunction(){
     // renderCard(movies.slice(limit*(page-1)))
 }
 right.addEventListener("click", rightFunction)
-renderCard(movies.slice(0, 3))
+
 function leftFunction(){
     page--
     if(page > 0){
@@ -151,32 +152,32 @@ function leftFunction(){
     
 }
 left.addEventListener("click", leftFunction)
+renderCard(movies)
+// let objectStorage = {
+//     name: null,
+//     year: null,
+// }
+// let collapse = elementId("flush-collapseOne")
+// function titles(e){
+//     console.log("ishladi")
+//     let texts = e.target.textContent
+//     let rejexx = new RegExp(texts, "gi")
+//     let filters = movies.filter((item) => item.title.match(rejexx))
+//     for(key of filters){
+//        objectStorage.name = key.title
+//        objectStorage.year = key.year
+//     }
+//     window.localStorage.setItem("storageRender", JSON.stringify(objectStorage))
+//     let acardionBody = createTag("div")
+//     acardionBody.className = 'accordion-body'
+//     acardionBody.append(`Got it's dowload ${JSON.parse(localStorage.getItem("storageRender")).name}`)
+//     collapse.appendChild(acardionBody)
+// }
 
-let objectStorage = {
-    name: null,
-    year: null,
-}
-let collapse = elementId("flush-collapseOne")
-function titles(e){
-    console.log("ishladi")
-    let texts = e.target.textContent
-    let rejexx = new RegExp(texts, "gi")
-    let filters = movies.filter((item) => item.title.match(rejexx))
-    for(key of filters){
-       objectStorage.name = key.title
-       objectStorage.year = key.year
-    }
-    window.localStorage.setItem("storageRender", JSON.stringify(objectStorage))
-    let acardionBody = createTag("div")
-    acardionBody.className = 'accordion-body'
-    acardionBody.append(`Got it's dowload ${JSON.parse(localStorage.getItem("storageRender")).name}`)
-    collapse.appendChild(acardionBody)
-}
-
-let acardionBody = createTag("div")
-acardionBody.className = 'accordion-body'
-acardionBody.append(`Got it's dowload ${JSON.parse(localStorage.getItem("storageRender")).name}`)
-collapse.appendChild(acardionBody)
+// let acardionBody = createTag("div")
+// acardionBody.className = 'accordion-body'
+// acardionBody.append(`Got it's dowload ${JSON.parse(localStorage.getItem("storageRender")).name}`)
+// collapse.appendChild(acardionBody)
 
 let caruselAlign = renderElement(".carusel_align")
 let caruselImages = renderElement(".carusel_images")
@@ -222,3 +223,61 @@ setInterval(() => {
     changes()
 }, 1000)
 console.timeEnd("changes Carusel time")
+
+// let listes = renderElement(".listes")
+// function books(e){
+//     if(e.target.matches(".js-bookmarks")){
+//         let id = e.target.dataset.id
+//         for(let i = 0; i<movies.length; i++){
+//             if(movies[i].id == id){
+//             let li = createTag("li")
+//             li.className = "d-flex justify-content-between border p-3 m-0 align-items-center"
+//             let h4 = createTag("h4")
+//             h4.appendChild(textNode(movies[i].title))
+//             li.appendChild(h4)
+//             listes.appendChild(li)    
+//             let buttonRemove = createTag("button")
+//             buttonRemove.className = 'btn btn-danger'
+//             buttonRemove.appendChild(textNode("Remove"))
+//             li.appendChild(buttonRemove)
+//             buttonRemove.addEventListener("click", () => {
+//             let parent = buttonRemove.parentNode
+//             parent.remove()
+//             })
+//         }
+//         }
+//     }
+// }
+// parent.addEventListener("click", books)
+
+let objectBooks = {
+    name: null
+}
+let listes = renderElement(".listes")
+function handleBooks(e)
+{
+    if(e.target.matches(".js-bookmarks") ){
+        let ids = e.target.dataset.id
+        for(let i = 0; i<movies.length; i++){
+           if(ids == movies[i].id){
+                objectBooks.name = movies[i].title
+                window.localStorage.setItem("localBooks", JSON.stringify(objectBooks))
+           }
+        }
+        let li = createTag("li")
+        li.className = "d-flex justify-content-between border p-3 m-0 align-items-center"
+        listes.appendChild(li)
+        let h4 = createTag("h4")
+        h4.appendChild(textNode(JSON.parse(window.localStorage.getItem("localBooks")).name))
+        li.appendChild(h4)
+        let buttonRemove = createTag("button")
+        buttonRemove.className = 'btn btn-danger'
+        buttonRemove.appendChild(textNode(`Remove ${JSON.parse(window.localStorage.getItem("localBooks")).name}`))
+        buttonRemove.addEventListener("click", () => {
+            let parentsLi = buttonRemove.parentNode
+            parentsLi.remove()
+        })
+        li.appendChild(buttonRemove)
+    }
+}
+parent.addEventListener("click", handleBooks)

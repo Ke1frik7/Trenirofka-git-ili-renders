@@ -1,5 +1,6 @@
 let movies = [
     {
+        id:1,
         title: "Batman Arkham",
         year: "2006",
         trailer: "https://youtu.be/dx96vzimsG8",
@@ -11,6 +12,7 @@ let movies = [
     },
     
     {
+        id: 2,
         title: "Yuri Boyka",
         year: "2010",
         trailer: "https://youtu.be/A6cgtnHzqoA",
@@ -21,6 +23,7 @@ let movies = [
         rating: 13
     },
     {
+        id:3,
         title: "Lionel Messi",
         year: "2016",
         trailer: "https://youtu.be/Ny--3PqxQ1s",
@@ -31,6 +34,7 @@ let movies = [
         rating: 16
     },
     {
+        id:4,
         title: "Cristiano Ronaldo",
         year: "2018",
         trailer: "https://youtu.be/qc8C-rH2nqA",
@@ -41,6 +45,7 @@ let movies = [
         rating: 7
     },
     {
+        id:5,
         title: "Bill Gates",
         year: "2015",
         trailer: "https://youtu.be/OiWJLoEQY8Q",
@@ -51,6 +56,7 @@ let movies = [
         rating: 11
     },
     {
+        id:6,
         title: "Stive jobs",
         year: "2013",
         trailer: "https://youtu.be/M7CdqQEBDxg",
@@ -61,6 +67,7 @@ let movies = [
         rating: 12
     },
     {
+        id:7,
         title: "The Undertaker",
         year: "2022",
         trailer: "https://youtu.be/ldgpvlN8XL4",
@@ -71,6 +78,7 @@ let movies = [
         rating: 14
     },
     {
+        id:8,
         title: "Mark Suckerberg FaceBook",
         year: "2017",
         trailer: "https://youtu.be/f_7Se53EzaA",
@@ -81,6 +89,7 @@ let movies = [
         rating: 10
     },
     {
+        id:9,
         title: "Jumanji",
         year: "2018",
         trailer: "https://youtu.be/2QKg5SZ_35I",
@@ -91,6 +100,7 @@ let movies = [
         rating: 9
     },
     {
+        id:10,
         title: "Bleyd",
         year: "2000",
         trailer: "https://youtu.be/eSLLmPBvs-A",
@@ -101,6 +111,7 @@ let movies = [
         rating: 7
     },
     {
+        id: 11,
         title: "Bruss Lee",
         year: "1989",
         trailer: "https://youtu.be/gJeu9hCcOv0",
@@ -111,6 +122,7 @@ let movies = [
         reting: 8
     },
     {
+        id: 12,
         title: "HACKER",
         year: "2020",
         trailer: "https://youtu.be/iWiC75E2DO8",
